@@ -1,0 +1,442 @@
+:root {
+  color-scheme: dark;
+  color: #eaf0fb;
+  background: #0b1120;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+  font-size: 16px;
+  --surface: rgba(18, 26, 47, 0.92);
+  --surface-strong: rgba(17, 22, 43, 0.98);
+  --surface-muted: rgba(65, 84, 138, 0.16);
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  --accent: #78d5ff;
+  --accent-strong: #5ed0ff;
+  --success: #4ade80;
+  --warning: #facc15;
+  --danger: #fb7185;
+  --muted: #9fb0d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top left, rgba(123, 193, 255, 0.18), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(167, 85, 255, 0.16), transparent 18%),
+    linear-gradient(180deg, #09101f 0%, #081018 100%);
+  color: #eef2ff;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.dashboard-root {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-radius: 28px;
+  background: rgba(13, 21, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-title {
+  font-size: clamp(1.8rem, 2.3vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.app-subtitle {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.hardware-status-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  background: rgba(15, 23, 44, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hw-indicator {
+  display: grid;
+  gap: 4px;
+  align-items: start;
+}
+
+.hw-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hw-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hw-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-body {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 24px;
+}
+
+.dashboard-card {
+  border-radius: 28px;
+  background: rgba(13, 20, 37, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.dashboard-footer {
+  padding: 18px 24px;
+  border-radius: 24px;
+  background: rgba(13, 20, 37, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: var(--shadow);
+}
+
+.camera-capture,
+.meter-form,
+.submit-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.camera-header,
+.form-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.image-count {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.image-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  min-height: 120px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(12, 18, 33, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.thumbnail,
+.thumbnail-placeholder {
+  width: 100%;
+  min-height: 120px;
+  object-fit: cover;
+  display: grid;
+  place-items: center;
+}
+
+.thumbnail-placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.06));
+}
+
+.placeholder-icon {
+  font-size: 1.85rem;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.remove-image-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255, 80, 80, 0.22);
+}
+
+.capture-btn {
+  min-height: 120px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  background: rgba(20, 33, 58, 0.76);
+  color: var(--accent);
+  border-radius: 22px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.capture-btn:hover {
+  background: rgba(28, 48, 88, 0.92);
+  transform: translateY(-2px);
+}
+
+.capture-icon {
+  font-size: 1.6rem;
+}
+
+.capture-label {
+  font-weight: 700;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(9, 16, 34, 0.9);
+  color: #f8fbff;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  border-color: rgba(120, 213, 255, 0.9);
+  box-shadow: 0 0 0 4px rgba(120, 213, 255, 0.12);
+}
+
+.field-input--mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.field-input--error,
+.field-select--error,
+.field-textarea--error {
+  border-color: rgba(251, 113, 133, 0.95);
+}
+
+.field-error {
+  font-size: 0.84rem;
+  color: #fb7185;
+}
+
+.flag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.flag-chip {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #e5e7eb;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.flag-chip:hover,
+.flag-chip--active {
+  transform: translateY(-1px);
+  background: rgba(72, 163, 255, 0.12);
+  border-color: rgba(120, 213, 255, 0.28);
+}
+
+.flag-chip--active {
+  background: linear-gradient(135deg, rgba(120, 213, 255, 0.2), rgba(92, 170, 255, 0.1));
+}
+
+.field-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.char-count {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.submit-area {
+  gap: 12px;
+}
+
+.submit-error {
+  color: #fda4af;
+  background: rgba(251, 113, 133, 0.08);
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(251, 113, 133, 0.16);
+}
+
+.submit-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+button[type='submit'],
+button[type='button'] {
+  font: inherit;
+}
+
+@media (max-width: 1080px) {
+  .dashboard-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  #root {
+    padding: 20px;
+  }
+
+  .dashboard-header,
+  .dashboard-footer,
+  .dashboard-card {
+    padding: 20px;
+  }
+
+  .image-strip,
+  .form-row-2col,
+  .flag-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   NEW FEATURES: QR Scanner, GPS Location, Image Upload
+   ════════════════════════════════════════════════════ */
+
+/* QR Code Scanner Button & Input with Button */
+.input-with-button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-with-button .field-input {
+  flex: 1;
+}
+
+.btn-qr-scan {
+  padding: 8px 12px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-qr-scan:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-qr-scan:active {
+  transform: translateY(0);
+}
+
+/* Location Picker Integration */
+.form-section .location-picker {
+  margin-top: 12px;
+}
+
+/* Image Upload Section */
+.image-upload {
+  width: 100%;
+  margin: 12px 0;
+}
